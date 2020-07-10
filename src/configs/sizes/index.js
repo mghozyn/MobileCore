@@ -1,5 +1,7 @@
 // import RFValue from 'react-native-responsive-';
 
+import {RFValue} from 'react-native-responsive-fontsize';
+
 const sizes = {
   txtHeading1: RFValue(20),
   txtHeading2: RFValue(18),

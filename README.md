@@ -39,7 +39,7 @@ npm install
 If using Android X, run jetifier first
 
 ```
-npm android-jetify
+npm run android-jetify
 ```
 
 After jetifier run, you can run in your android device / android simulator
@@ -53,7 +53,7 @@ npm run android
 Install dependency in ios by using pods
 
 ```
-npm ios-pods
+npm run ios-cocoapods
 ```
 
 After pods install, you can run in your iPhone simulator
