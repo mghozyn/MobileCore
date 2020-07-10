@@ -1,113 +1,106 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
 import React from 'react';
 import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
+  Dimensions,
+  FlatList,
   StatusBar,
+  StyleSheet,
+  Text,
+  View,
+  Alert,
 } from 'react-native';
+import {RFValue} from 'react-native-responsive-fontsize';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import colors from '../configs/colors';
+import sizes from '../configs/sizes';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const {width} = Dimensions.get('screen');
+const Menu = [
+  {title: 'Text', screen: 'Component Text'},
+  {title: 'Input Text', screen: 'Component Input Text'},
+  {title: 'Button', screen: 'Component Button'},
+  {title: 'Check Box', screen: 'Component Check Box'},
+  {title: 'Radio Button', screen: 'Component Radio Button'},
+  {title: 'Dropdown', screen: 'Component Dropdown'},
+  {title: 'List Item', screen: 'Component List Item'},
+  {title: 'Header', screen: 'Component Header'},
+  {title: 'Tab Bar', screen: 'Component Tab Bar'},
+  {title: 'Progress Bar', screen: 'Component Progress Bar'},
+  {title: 'Avatar', screen: 'Component Avatar'},
+  {title: 'Card', screen: 'Component Card'},
+  {title: 'Modal', screen: 'Component Modal'},
+];
 
-const App: () => React$Node = () => {
+const App = ({navigation}) => {
   return (
     <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor={colors.basePrimary}
+      />
+      <FlatList
+        style={styles.listContainer}
+        data={Menu}
+        keyExtractor={(_item, index) => index.toString()}
+        renderItem={({item}) => (
+          <TouchableWithoutFeedback
+            style={styles.list}
+            onPress={() =>
+              navigation.navigate(item.screen, {
+                titleLine2: 'Demo Page',
+                iconRight: 'information',
+                onPressRight: () => Alert.alert('Component Info'),
+              })
+            }>
+            <View style={styles.containerText}>
+              <Text style={styles.textListTitle}>{item.title}</Text>
+              <Text style={styles.textListDesc}>
+                See Demo Component {item.title}
               </Text>
             </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
+            <Icon
+              name="chevron-right-circle"
+              size={sizes.iconSizeMedium}
+              color={colors.basePrimary}
+            />
+          </TouchableWithoutFeedback>
+        )}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
+      />
     </>
   );
 };
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
   engine: {
     position: 'absolute',
     right: 0,
   },
-  body: {
-    backgroundColor: Colors.white,
+  listContainer: {
+    flex: 1,
   },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  list: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: RFValue(16),
+    paddingVertical: RFValue(12),
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
+  containerText: {flexDirection: 'column'},
+  textListTitle: {
+    fontSize: sizes.txtParagraph,
+    color: colors.baseBlack,
+    fontWeight: 'bold',
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
+  textListDesc: {
+    fontSize: sizes.txtBody,
+    color: colors.baseDarkGrey,
   },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
+  separator: {
+    width: width * 0.9,
+    height: RFValue(1),
+    backgroundColor: colors.baseGrey,
+    alignSelf: 'center',
   },
 });
 

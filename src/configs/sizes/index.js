@@ -3,12 +3,12 @@
 import {RFValue} from 'react-native-responsive-fontsize';
 
 const sizes = {
-  txtHeading1: RFValue(20),
-  txtHeading2: RFValue(18),
-  txtHeading3: RFValue(16),
-  txtTitle: RFValue(14),
+  txtHeading1: RFValue(24),
+  txtHeading2: RFValue(20),
+  txtHeading3: RFValue(18),
+  txtTitle: RFValue(16),
+  txtParagraph: RFValue(14),
   txtBody: RFValue(12),
-  txtParagraph: RFValue(11),
   txtInfo: RFValue(10),
 
   iconSizeXLarge: RFValue(24),
